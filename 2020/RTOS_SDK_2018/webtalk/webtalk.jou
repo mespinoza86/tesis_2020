@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Webtalk v2018.3 (64-bit)
+# SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+# 
+# Start of session at: Sat Jul  4 22:32:59 2020
+# Process ID: 12521
+# Current directory: /home/marco/Documents/2020/RTOS_SDK_2018/webtalk
+# Command line: wbtcv -mode batch -source sdk_webtalk.tcl
+# Log file: /home/marco/Documents/2020/RTOS_SDK_2018/webtalk/webtalk.log
+# Journal file: /home/marco/Documents/2020/RTOS_SDK_2018/webtalk/webtalk.jou
+#-----------------------------------------------------------
+source sdk_webtalk.tcl

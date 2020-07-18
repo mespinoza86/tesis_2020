@@ -1,0 +1,19 @@
+Nothing to build in platform 'zed'
+
+20:22:57 **** Incremental Build of configuration Debug for project multiplyremote ****
+make all 
+make --no-print-directory pre-build
+a9-linaro-pre-build-step
+ 
+make --no-print-directory main-build
+Building file: ../src/matrix_multiply.c
+Invoking: ARM v7 gcc compiler
+arm-none-eabi-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/matrix_multiply.o" -lm -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -I/home/marco/Documents/2020/multipliy2019/SDK_project/zed/export/zed/sw/zed/freertos10_xilinx_domain/bspinclude/include -MMD -MP -MF"src/matrix_multiply.d" -MT"src/matrix_multiply.o" -o "src/matrix_multiply.o" "../src/matrix_multiply.c"
+../src/matrix_multiply.c:13:10: fatal error: cmath: No such file or directory
+ #include <cmath>
+          ^~~~~~~
+compilation terminated.
+src/subdir.mk:33: recipe for target 'src/matrix_multiply.o' failed
+make[1]: *** [src/matrix_multiply.o] Error 1
+makefile:33: recipe for target 'all' failed
+make: *** [all] Error 2

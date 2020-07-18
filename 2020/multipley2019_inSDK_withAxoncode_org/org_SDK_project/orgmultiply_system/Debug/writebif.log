@@ -1,0 +1,18 @@
+TRACE::2020-04-09.18:33:22::SCWBifWriter::Found the complete platform /home/marco/Documents/2020/multipliy2019/org_SDK_project/zed/export/zed/zed.xpfm
+TRACE::2020-04-09.18:33:22::SCWBifWriter::hardware databse : design_1_wrapper
+TRACE::2020-04-09.18:33:22::SCWBifWriter::No bitstream found in the design
+TRACE::2020-04-09.18:33:22::SCWBifWriter::Found a baremetal domain, proc: ps7_cortexa9_1
+TRACE::2020-04-09.18:33:22::SCWBifWriter::proc type : 
+TRACE::2020-04-09.18:33:22::SCWBifWriter::proc[0] : ps7_cortexa9_1
+TRACE::2020-04-09.18:33:22::SCWBifWriter::Device type is : zynq
+TRACE::2020-04-09.18:33:22::SCWBifWriter::Writing BIF to file : /home/marco/Documents/2020/multipliy2019/org_SDK_project/orgmultiply_system/Debug/system.bif
+TRACE::2020-04-09.18:33:22::SCWBifWriter::Writing the Zynq Baremetal bif 
+TRACE::2020-04-09.18:33:40::SCWBifWriter::Found the complete platform /home/marco/Documents/2020/multipliy2019/org_SDK_project/zed/export/zed/zed.xpfm
+TRACE::2020-04-09.18:33:40::SCWBifWriter::hardware databse : design_1_wrapper
+TRACE::2020-04-09.18:33:40::SCWBifWriter::No bitstream found in the design
+TRACE::2020-04-09.18:33:40::SCWBifWriter::Found a baremetal domain, proc: ps7_cortexa9_1
+TRACE::2020-04-09.18:33:40::SCWBifWriter::proc type : 
+TRACE::2020-04-09.18:33:40::SCWBifWriter::proc[0] : ps7_cortexa9_1
+TRACE::2020-04-09.18:33:40::SCWBifWriter::Device type is : zynq
+TRACE::2020-04-09.18:33:40::SCWBifWriter::Writing BIF to file : /home/marco/Documents/2020/multipliy2019/org_SDK_project/orgmultiply_system/Debug/system.bif
+TRACE::2020-04-09.18:33:40::SCWBifWriter::Writing the Zynq Baremetal bif 

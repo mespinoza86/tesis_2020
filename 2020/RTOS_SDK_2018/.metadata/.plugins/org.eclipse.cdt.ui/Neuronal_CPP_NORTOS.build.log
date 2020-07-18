@@ -1,0 +1,150 @@
+17:48:16 **** Auto Build of configuration Debug for project Neuronal_CPP_NORTOS ****
+make pre-build main-build 
+a9-linaro-pre-build-step
+ 
+Building file: ../src/main.cc
+Invoking: ARM v7 g++ compiler
+arm-none-eabi-g++ -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/main.o" -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -I../../standalone_bsp_0/ps7_cortexa9_0/include -MMD -MP -MF"src/main.d" -MT"src/main.o" -o "src/main.o" "../src/main.cc"
+../src/main.cc:32:5: error: 'uio' does not name a type; did you mean 'utoa'?
+     uio<memmaptype> _uioIP;
+     ^~~
+     utoa
+../src/main.cc: In member function 'void MMIP::start(uint, uint, uint)':
+../src/main.cc:43:3: error: '_uioIP' was not declared in this scope
+   _uioIP[ipSizeOff] = nsize;
+   ^~~~~~
+../src/main.cc: In member function 'void MMIP::printStatus()':
+../src/main.cc:50:35: error: '_uioIP' was not declared in this scope
+   std::cout<<"Size: "<<std::hex<< _uioIP[ipSizeOff]<<"\n";
+                                   ^~~~~~
+../src/main.cc: In constructor 'MMIP::MMIP(const string&)':
+../src/main.cc:56:37: error: class 'MMIP' does not have any field named '_uioIP'
+ MMIP::MMIP(const std::string &name):_uioIP(name){}
+                                     ^~~~~~
+../src/main.cc: At global scope:
+../src/main.cc:61:5: error: 'uio' does not name a type; did you mean 'utoa'?
+     uio<memmaptype> _uioDMA;
+     ^~~
+     utoa
+../src/main.cc: In member function 'void AXIDMA::reset()':
+../src/main.cc:75:3: error: '_uioDMA' was not declared in this scope
+   _uioDMA[mm2sOff+dmaCtrlOff] = 0x100;
+   ^~~~~~~
+../src/main.cc: In member function 'void AXIDMA::mm2s_start(uint, uint)':
+../src/main.cc:81:3: error: '_uioDMA' was not declared in this scope
+   _uioDMA[mm2sOff+dmaPhyOff] = phyaddr;
+   ^~~~~~~
+../src/main.cc: In member function 'void AXIDMA::s2mm_start(uint, uint, uint)':
+../src/main.cc:86:3: error: '_uioDMA' was not declared in this scope
+   _uioDMA[s2mmOff+dmaPhyOff] = phyaddr+(outputOffset*4);
+   ^~~~~~~
+../src/main.cc: In member function 'void AXIDMA::wait_interrupt()':
+../src/main.cc:96:14: error: '_uioDMA' was not declared in this scope
+     Finish = _uioDMA[s2mmOff+dmaCtrlOff+1]>>1;
+              ^~~~~~~
+../src/main.cc: In constructor 'AXIDMA::AXIDMA(const string&)':
+../src/main.cc:100:41: error: class 'AXIDMA' does not have any field named '_uioDMA'
+ AXIDMA::AXIDMA(const std::string &name):_uioDMA(name){}
+                                         ^~~~~~~
+../src/main.cc: At global scope:
+../src/main.cc:163:1: error: invalid use of template-name 'GapJunctionIP' without an argument list
+ GapJunctionIP::GapJunctionIP(uint nsize):
+ ^~~~~~~~~~~~~
+../src/main.cc:163:1: note: class template argument deduction is only available with -std=c++1z or -std=gnu++1z
+../src/main.cc:131:8: note: 'template<class T> struct GapJunctionIP' declared here
+ struct GapJunctionIP{
+        ^~~~~~~~~~~~~
+../src/main.cc:169:8: error: invalid use of template-name 'GapJunctionIP' without an argument list
+ inline GapJunctionIP::modprec& GapJunctionIP::VdendBuff(uint idx){return _buff[idx];}
+        ^~~~~~~~~~~~~
+../src/main.cc:169:8: note: class template argument deduction is only available with -std=c++1z or -std=gnu++1z
+../src/main.cc:131:8: note: 'template<class T> struct GapJunctionIP' declared here
+ struct GapJunctionIP{
+        ^~~~~~~~~~~~~
+../src/main.cc:170:8: error: invalid use of template-name 'GapJunctionIP' without an argument list
+ inline GapJunctionIP::modprec& GapJunctionIP::CondBuff(uint idx){return _buff[_conducOff+idx];}
+        ^~~~~~~~~~~~~
+../src/main.cc:170:8: note: class template argument deduction is only available with -std=c++1z or -std=gnu++1z
+../src/main.cc:131:8: note: 'template<class T> struct GapJunctionIP' declared here
+ struct GapJunctionIP{
+        ^~~~~~~~~~~~~
+../src/main.cc:171:8: error: invalid use of template-name 'GapJunctionIP' without an argument list
+ inline GapJunctionIP::modprec& GapJunctionIP::IcBuff(uint idx){return _buff[_icOff+idx];}
+        ^~~~~~~~~~~~~
+../src/main.cc:171:8: note: class template argument deduction is only available with -std=c++1z or -std=gnu++1z
+../src/main.cc:131:8: note: 'template<class T> struct GapJunctionIP' declared here
+ struct GapJunctionIP{
+        ^~~~~~~~~~~~~
+../src/main.cc:174:6: error: 'template<class T> struct GapJunctionIP' used without template parameters
+ void GapJunctionIP::copyCondMatrix(const container &cond){
+      ^~~~~~~~~~~~~
+../src/main.cc: In function 'void copyCondMatrix(const container&)':
+../src/main.cc:175:30: error: '_nsize' was not declared in this scope
+   const uint BLOCK_NUMBERS = _nsize/BLOCK_SIZE;
+                              ^~~~~~
+../src/main.cc:175:30: note: suggested alternative: 'nice'
+   const uint BLOCK_NUMBERS = _nsize/BLOCK_SIZE;
+                              ^~~~~~
+                              nice
+../src/main.cc:175:37: error: 'BLOCK_SIZE' was not declared in this scope
+   const uint BLOCK_NUMBERS = _nsize/BLOCK_SIZE;
+                                     ^~~~~~~~~~
+../src/main.cc:175:37: note: suggested alternative: 'LOCK_SH'
+   const uint BLOCK_NUMBERS = _nsize/BLOCK_SIZE;
+                                     ^~~~~~~~~~
+                                     LOCK_SH
+../src/main.cc:181:14: error: there are no arguments to 'CondBuff' that depend on a template parameter, so a declaration of 'CondBuff' must be available [-fpermissive]
+              CondBuff(c_idx)=cond[(row*_nsize)+column];
+              ^~~~~~~~
+../src/main.cc:181:14: note: (if you use '-fpermissive', G++ will accept your code, but allowing the use of an undeclared name is deprecated)
+../src/main.cc: At global scope:
+../src/main.cc:190:6: error: 'template<class T> struct GapJunctionIP' used without template parameters
+ void GapJunctionIP::copyVdend(const container &vdend){
+      ^~~~~~~~~~~~~
+../src/main.cc: In function 'void copyVdend(const container&)':
+../src/main.cc:193:5: error: there are no arguments to 'VdendBuff' that depend on a template parameter, so a declaration of 'VdendBuff' must be available [-fpermissive]
+     VdendBuff(i)=v; i++;
+     ^~~~~~~~~
+../src/main.cc: At global scope:
+../src/main.cc:197:6: error: 'template<class T> struct GapJunctionIP' used without template parameters
+ void GapJunctionIP::run(){
+      ^~~~~~~~~~~~~
+../src/main.cc: In function 'void run()':
+../src/main.cc:200:3: error: '_gjip' was not declared in this scope
+   _gjip.start(_nsize,0,_nsize);
+   ^~~~~
+../src/main.cc:200:15: error: '_nsize' was not declared in this scope
+   _gjip.start(_nsize,0,_nsize);
+               ^~~~~~
+../src/main.cc:200:15: note: suggested alternative: 'nice'
+   _gjip.start(_nsize,0,_nsize);
+               ^~~~~~
+               nice
+../src/main.cc:202:3: error: '_dma' was not declared in this scope
+   _dma.reset();
+   ^~~~
+../src/main.cc:202:3: note: suggested alternative: 'fma'
+   _dma.reset();
+   ^~~~
+   fma
+../src/main.cc:204:26: error: '_buff' was not declared in this scope
+   _dma.mm2s_start(_nsize,_buff._phyaddr);
+                          ^~~~~
+../src/main.cc:206:41: error: '_icOff' was not declared in this scope
+   _dma.s2mm_start(_nsize,_buff._phyaddr,_icOff);
+                                         ^~~~~~
+../src/main.cc: In lambda function:
+../src/main.cc:232:12: warning: unused variable 'idx' [-Wunused-variable]
+       uint idx = 0;
+            ^~~
+../src/main.cc:228:15: warning: unused variable 't' [-Wunused-variable]
+     for(auto &t : times){
+               ^
+../src/main.cc:223:10: warning: unused variable 'nsize' [-Wunused-variable]
+     auto nsize=V.size();
+          ^~~~~
+make: *** [src/main.o] Error 1
+src/subdir.mk:21: recipe for target 'src/main.o' failed
+
+17:48:17 Build Finished (took 1s.316ms)
+

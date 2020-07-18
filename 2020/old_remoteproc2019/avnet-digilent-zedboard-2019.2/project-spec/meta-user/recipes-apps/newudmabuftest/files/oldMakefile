@@ -1,0 +1,13 @@
+APP = newudmabuftest
+
+# Add any other object files to this list below
+APP_OBJS = newudmabuftest.o
+
+all: build
+
+build: $(APP)
+
+$(APP): $(APP_OBJS)
+	$(CXX) -o $@ $(APP_OBJS) $(LDFLAGS) $(LDLIBS)
+clean:
+	rm -f $(APP) *.o

@@ -1,0 +1,32 @@
+The target system is: FreeRTOS -  - arm
+The host system is: Linux - 4.15.0-91-generic - x86_64
+Determining if files stdatomic.h exist passed with the following output:
+Change Dir: /home/marco/Documents/2020/multipliy2019/org_SDK_project/zed/ps7_cortexa9_1/freertos10_xilinx_domain/bsp/ps7_cortexa9_1/libsrc/openamp_v1_5/build_openamp/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_5aef8/fast"
+/usr/bin/make -f CMakeFiles/cmTC_5aef8.dir/build.make CMakeFiles/cmTC_5aef8.dir/build
+make[1]: Entering directory '/home/marco/Documents/2020/multipliy2019/org_SDK_project/zed/ps7_cortexa9_1/freertos10_xilinx_domain/bsp/ps7_cortexa9_1/libsrc/openamp_v1_5/build_openamp/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_5aef8.dir/CheckIncludeFiles.c.obj
+/opt/Xilinx_Vitis_2019/Vitis/2019.2/gnu/aarch32/lin/gcc-arm-none-eabi/bin/arm-none-eabi-gcc   -O2 -c -DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra -I/home/marco/Documents/2020/multipliy2019/org_SDK_project/zed/ps7_cortexa9_1/freertos10_xilinx_domain/bsp/ps7_cortexa9_1/include -Wall -Wextra -c   -o CMakeFiles/cmTC_5aef8.dir/CheckIncludeFiles.c.obj   -c /home/marco/Documents/2020/multipliy2019/org_SDK_project/zed/ps7_cortexa9_1/freertos10_xilinx_domain/bsp/ps7_cortexa9_1/libsrc/openamp_v1_5/build_openamp/CMakeFiles/CMakeTmp/CheckIncludeFiles.c
+Linking C executable cmTC_5aef8
+/opt/Xilinx_Vitis_2019/Vitis/2019.2/tps/lnx64/cmake-3.3.2/bin/cmake -E cmake_link_script CMakeFiles/cmTC_5aef8.dir/link.txt --verbose=1
+/opt/Xilinx_Vitis_2019/Vitis/2019.2/gnu/aarch32/lin/gcc-arm-none-eabi/bin/arm-none-eabi-gcc  -O2 -c -DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra -I/home/marco/Documents/2020/multipliy2019/org_SDK_project/zed/ps7_cortexa9_1/freertos10_xilinx_domain/bsp/ps7_cortexa9_1/include -Wall -Wextra -c    CMakeFiles/cmTC_5aef8.dir/CheckIncludeFiles.c.obj  -o cmTC_5aef8  
+arm-none-eabi-gcc: warning: CMakeFiles/cmTC_5aef8.dir/CheckIncludeFiles.c.obj: linker input file unused because linking not done
+make[1]: Leaving directory '/home/marco/Documents/2020/multipliy2019/org_SDK_project/zed/ps7_cortexa9_1/freertos10_xilinx_domain/bsp/ps7_cortexa9_1/libsrc/openamp_v1_5/build_openamp/CMakeFiles/CMakeTmp'
+
+
+Determining if files fcntl.h exist passed with the following output:
+Change Dir: /home/marco/Documents/2020/multipliy2019/org_SDK_project/zed/ps7_cortexa9_1/freertos10_xilinx_domain/bsp/ps7_cortexa9_1/libsrc/openamp_v1_5/build_openamp/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_7f7bd/fast"
+/usr/bin/make -f CMakeFiles/cmTC_7f7bd.dir/build.make CMakeFiles/cmTC_7f7bd.dir/build
+make[1]: Entering directory '/home/marco/Documents/2020/multipliy2019/org_SDK_project/zed/ps7_cortexa9_1/freertos10_xilinx_domain/bsp/ps7_cortexa9_1/libsrc/openamp_v1_5/build_openamp/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_7f7bd.dir/CheckIncludeFiles.c.obj
+/opt/Xilinx_Vitis_2019/Vitis/2019.2/gnu/aarch32/lin/gcc-arm-none-eabi/bin/arm-none-eabi-gcc   -O2 -c -DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra -I/home/marco/Documents/2020/multipliy2019/org_SDK_project/zed/ps7_cortexa9_1/freertos10_xilinx_domain/bsp/ps7_cortexa9_1/include -Wall -Wextra -c   -o CMakeFiles/cmTC_7f7bd.dir/CheckIncludeFiles.c.obj   -c /home/marco/Documents/2020/multipliy2019/org_SDK_project/zed/ps7_cortexa9_1/freertos10_xilinx_domain/bsp/ps7_cortexa9_1/libsrc/openamp_v1_5/build_openamp/CMakeFiles/CMakeTmp/CheckIncludeFiles.c
+Linking C executable cmTC_7f7bd
+/opt/Xilinx_Vitis_2019/Vitis/2019.2/tps/lnx64/cmake-3.3.2/bin/cmake -E cmake_link_script CMakeFiles/cmTC_7f7bd.dir/link.txt --verbose=1
+/opt/Xilinx_Vitis_2019/Vitis/2019.2/gnu/aarch32/lin/gcc-arm-none-eabi/bin/arm-none-eabi-gcc  -O2 -c -DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra -I/home/marco/Documents/2020/multipliy2019/org_SDK_project/zed/ps7_cortexa9_1/freertos10_xilinx_domain/bsp/ps7_cortexa9_1/include -Wall -Wextra -c    CMakeFiles/cmTC_7f7bd.dir/CheckIncludeFiles.c.obj  -o cmTC_7f7bd  
+arm-none-eabi-gcc: warning: CMakeFiles/cmTC_7f7bd.dir/CheckIncludeFiles.c.obj: linker input file unused because linking not done
+make[1]: Leaving directory '/home/marco/Documents/2020/multipliy2019/org_SDK_project/zed/ps7_cortexa9_1/freertos10_xilinx_domain/bsp/ps7_cortexa9_1/libsrc/openamp_v1_5/build_openamp/CMakeFiles/CMakeTmp'
+
+

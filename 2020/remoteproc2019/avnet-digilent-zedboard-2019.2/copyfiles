@@ -1,0 +1,15 @@
+petalinux-package --boot --fsbl images/linux/zynq_fsbl.elf --fpga design_1_wrapper.bit --u-boot --force
+sudo mount /dev/sdc1 /mnt/boot
+sudo mount /dev/sdc2 /mnt/root
+rm -rf /mnt/boot/*
+rm -rf /mnt/root/*
+cp design_1_wrapper.bit /mnt/boot/
+cp images/linux/BOOT.BIN /mnt/boot/
+cp images/linux/image.ub /mnt/boot/
+cp images/linux/rootfs.cpio.gz /mnt/boot/
+cp images/linux/system.dtb /mnt/boot/
+cp images/linux/zynq_fsbl.elf /mnt/boot/
+cp images/linux/uImage /mnt/boot/
+sudo umount /mnt/boot/
+sudo umount /mnt/root/
+

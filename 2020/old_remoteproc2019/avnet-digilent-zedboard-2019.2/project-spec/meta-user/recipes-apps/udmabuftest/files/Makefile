@@ -1,0 +1,14 @@
+APP = udmabuftest
+
+# Add any other object files to this list below
+APP_OBJS = udmabuftest.o
+
+all: build
+
+build: $(APP)
+
+$(APP): $(APP_OBJS)
+	$(CC) -std=c99 -mcpu=cortex-a9 -mfpu=neon -ftree-vectorize -lm -O3 $(LDFLAGS) -o $@ $(APP_OBJS) $(LDLIBS)
+
+
+clean:

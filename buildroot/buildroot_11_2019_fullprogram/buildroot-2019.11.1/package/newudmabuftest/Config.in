@@ -1,0 +1,4 @@
+config BR2_PACKAGE_NEWUDMABUFTEST
+	bool "newudmabuftest"
+	help
+		hello world mpi package

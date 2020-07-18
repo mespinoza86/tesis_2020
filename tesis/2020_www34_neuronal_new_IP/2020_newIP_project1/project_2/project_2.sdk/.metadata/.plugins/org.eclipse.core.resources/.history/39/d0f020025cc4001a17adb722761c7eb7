@@ -1,0 +1,386 @@
+
+/* FreeRTOS includes. */
+#include "FreeRTOS.h"
+#include "task.h"
+#include "queue.h"
+#include "timers.h"
+/* Xilinx includes. */
+#include "xil_printf.h"
+#include "xparameters.h"
+
+#include <iostream>
+#include <string>
+#include <cstring>
+#include <math.h>
+#include <memory>
+#include <functional>
+#include <chrono>
+#include <vector>
+#include <random>
+#include <cassert>
+#include "statistics.hpp"
+//#include "GapJunctionDriver.hpp"
+#include "ip-test.h"
+#include "uio.hpp"
+#include "xtime_l.h"
+#include <sys/time.h>
+
+#ifndef GapJunctionDriver
+#define GapJunctionDriver
+
+#define TIMER_ID	1
+#define DELAY_10_SECONDS	10000UL
+#define DELAY_1_SECOND		1000UL
+#define TIMER_CHECK_THRESHOLD	9
+/*-----------------------------------------------------------*/
+
+/* The Tx and Rx tasks as described at the top of this file. */
+
+
+static void _GapJuncitonTask_1(void *pvParameters );
+static void _GapJuncitonTask_2( void *pvParameters );
+static void _GapJuncitonTask_3( void *pvParameters );
+static void _GapJuncitonTask_4( void *pvParameters );
+static void _GapJuncitonTask_5( void *pvParameters );
+static void _GapJuncitonTask_6( void *pvParameters );
+
+static void vTimerCallback( TimerHandle_t pxTimer );
+/*-----------------------------------------------------------*/
+/* The queue used by the Tx and Rx tasks, as described at the top of this
+file. */
+
+static TaskHandle_t xGapJuncitonTask_1;
+static TaskHandle_t xGapJuncitonTask_2;
+static TaskHandle_t xGapJuncitonTask_3;
+static TaskHandle_t xGapJuncitonTask_4;
+static TaskHandle_t xGapJuncitonTask_5;
+static TaskHandle_t xGapJuncitonTask_6;
+
+static TimerHandle_t xTimer = NULL;
+char HWstring[15] = "Hello World";
+long RxtaskCntr = 0;
+
+#define _AXIDMA 0x40400000
+#define _IP_BASE 0x43C00000
+
+struct MMIP{
+  private:
+    using memmaptype = volatile unsigned;
+    uio<memmaptype> _uioIP;
+    static const auto ipSizeOff = uint(0x10>>2);
+    static const auto ipCtrlOff = uint(0x00>>2);
+    static const auto ipfrOff = uint(0x18>>2);
+    static const auto iplrOff = uint(0x20>>2);
+  public:
+    inline void start(uint nsize, uint firstRow,uint lastRow);
+    void printStatus();
+    MMIP(const std::string &name);
+};
+inline void MMIP::start(uint nsize, uint firstRow,uint lastRow){
+  _uioIP[_IP_BASE + ipSizeOff] = nsize;
+  _uioIP[_IP_BASE + ipfrOff] = firstRow;
+  _uioIP[_IP_BASE + iplrOff] = lastRow;
+  _uioIP[_IP_BASE + ipCtrlOff] = uint(0x01);
+  _uioIP[_IP_BASE + ipCtrlOff] = uint(0x01);
+}
+void MMIP::printStatus(){
+  std::cout<<"Size: "<<std::hex<< _uioIP[_IP_BASE + ipSizeOff]<<"\n";
+  std::cout<<"FirstRow: "<<std::hex<< _uioIP[_IP_BASE + ipfrOff]<<"\n";
+  std::cout<<"LastRow "<<std::hex<< _uioIP[_IP_BASE + iplrOff]<<"\n";
+  std::cout<<"Status: "<<std::hex<< _uioIP[_IP_BASE + ipCtrlOff]<<"\n";
+  std::cout<<"Address Size: "<<std::hex<<_IP_BASE + ipCtrlOff<<"\n";
+}
+
+MMIP::MMIP(const std::string &name):_uioIP(name){}
+
+struct AXIDMA{
+  using memmaptype = volatile unsigned;
+  private:
+    uio<memmaptype> _uioDMA;
+    const uint mm2sOff = uint(0x00>>2);
+    const uint s2mmOff = uint(0x30>>2);
+    const uint dmaCtrlOff = uint(0x00>>2);
+    const uint dmaPhyOff = uint(0x18>>2);
+    const uint dmaLenOff = uint(0x28>>2);
+  public:
+    inline void reset();
+    inline void mm2s_start(uint nsize, uint phyaddr);
+    inline void s2mm_start(uint nsize, uint phyaddr,uint outputOffset);
+    void wait_interrupt();
+    AXIDMA(const std::string &name);
+};
+inline void AXIDMA::reset(){
+  _uioDMA[mm2sOff+dmaCtrlOff + _AXIDMA] = 0x100;
+  _uioDMA[mm2sOff+dmaCtrlOff + _AXIDMA] = 0x000;
+  _uioDMA[s2mmOff+dmaCtrlOff + _AXIDMA] = 0x100;
+  _uioDMA[s2mmOff+dmaCtrlOff + _AXIDMA] = 0x000;
+}
+inline void AXIDMA::mm2s_start(uint nsize, uint phyaddr){
+  _uioDMA[mm2sOff+dmaPhyOff + _AXIDMA] = phyaddr;
+  _uioDMA[mm2sOff+dmaCtrlOff + _AXIDMA] = uint((0x1<<12)|1);
+  _uioDMA[mm2sOff+dmaLenOff + _AXIDMA] = nsize*(nsize+1)*4;
+}
+inline void AXIDMA::s2mm_start(uint nsize, uint phyaddr,uint outputOffset){
+  _uioDMA[s2mmOff+dmaPhyOff + _AXIDMA] = phyaddr+(outputOffset*4);
+  _uioDMA[s2mmOff+dmaCtrlOff + _AXIDMA] = uint((0x1<<12)|1);
+  _uioDMA[s2mmOff+dmaLenOff + _AXIDMA] = nsize*4;
+}
+void AXIDMA::wait_interrupt(){
+  uint Finish = 0;
+//  std::cout<<std::hex<< _uioDMA[mm2sOff+dmaCtrlOff+1]<<"\n";
+//  std::cout<<std::hex<< _uioDMA[s2mmOff+dmaCtrlOff+1]<<"\n";
+
+  while(Finish != 1) {
+    Finish = _uioDMA[_AXIDMA + s2mmOff+dmaCtrlOff+1]>>1;
+    Finish &= 1;
+  }
+}
+
+AXIDMA::AXIDMA(const std::string &name):_uioDMA(name){}
+
+template<typename T>
+struct UDMABUFF{
+  private:
+    using Del = std::function<void(T*)>;
+    std::unique_ptr<T,Del> _ptr;
+    static const auto _size = uint(134217728);
+    static const auto _cacheEnable = false;
+    int _mode = O_RDWR | O_SYNC;
+  public:
+    static const auto _phyaddr = uint(0x10000000);
+    UDMABUFF(const std::string &name);
+    inline T& operator[](uint idx);
+};
+
+template<typename T>
+UDMABUFF<T>::UDMABUFF(const std::string &name){
+}
+
+template<typename T>
+inline T& UDMABUFF<T>::operator[](uint idx){return _ptr.get()[idx];}
+
+
+struct GapJunctionIP{
+  private:
+    using modprec = float;
+    const std::string gjipName{"GapJunctionIP"};
+    const std::string axidmaName{"dma"};
+    const std::string udmabufName{"udmabuf0"};
+    MMIP _gjip;
+    AXIDMA _dma;
+    UDMABUFF<modprec> _buff;
+    const uint _nsize;
+    const uint _frow;
+    const uint _lrow;
+    const uint _icOff;
+    const uint _conducOff;
+    static const uint BLOCK_SIZE = 4;
+
+  public:
+//TODO    GapJunctionIP(uint,uint,uint);
+    GapJunctionIP(uint nsize);
+    inline modprec& VdendBuff(uint idx);
+    inline modprec& CondBuff(uint idx);
+    inline modprec& IcBuff(uint idx);
+    template<typename container>
+    void copyCondMatrix(const container &cond);
+    template<typename container>
+    void copyVdend(const container &vdend);
+    void run();
+};
+//TODO GapJunctionIP::GapJunctionIP(uint nsize, uint frow, uint lrow):
+//   _nsize(nsize),_frow(frow),_lrow(lrow),
+//   _gjip(gjipName),_dma(axidmaName), _buff(udmabufName){};
+
+GapJunctionIP::GapJunctionIP(uint nsize):
+  _gjip(gjipName),_dma(axidmaName),_buff(udmabufName),
+  _nsize(nsize),_frow(0),_lrow(nsize),
+  _icOff(nsize*(nsize+1)),
+  _conducOff(nsize){}
+
+inline GapJunctionIP::modprec& GapJunctionIP::VdendBuff(uint idx){return _buff[idx];}
+inline GapJunctionIP::modprec& GapJunctionIP::CondBuff(uint idx){return _buff[_conducOff+idx];}
+inline GapJunctionIP::modprec& GapJunctionIP::IcBuff(uint idx){return _buff[_icOff+idx];}
+
+uint BLOCK_NUMBERS;
+auto c_idx = uint(0);
+
+template<typename container>
+
+void GapJunctionIP::copyCondMatrix(const container &cond){
+  BLOCK_NUMBERS = _nsize/BLOCK_SIZE;
+  for(auto RowOfBlocks=uint(0); RowOfBlocks<BLOCK_NUMBERS; ++RowOfBlocks){
+    for(auto block=uint(0); block<BLOCK_NUMBERS; ++block){
+      for(auto row=RowOfBlocks*BLOCK_SIZE; row<RowOfBlocks*BLOCK_SIZE+BLOCK_SIZE; ++row){
+        for(auto column=block*BLOCK_SIZE;column<block*BLOCK_SIZE+BLOCK_SIZE;++column){
+        	CondBuff(c_idx)=cond[(row*_nsize)+column];
+             ++c_idx;
+        }
+      }
+    }
+  }
+}
+
+
+template<typename container>
+void GapJunctionIP::copyVdend(const container &vdend){
+  uint i = 0;
+  for(auto &v : vdend){
+    VdendBuff(i)=v; i++;
+  }
+}
+
+void GapJunctionIP::run(){
+  _gjip.start(_nsize,0,_nsize);
+  _dma.reset();
+  _dma.mm2s_start(_nsize,_buff._phyaddr);
+  _dma.s2mm_start(_nsize,_buff._phyaddr,_icOff);
+  _dma.wait_interrupt();
+}
+
+#endif
+
+
+XTime HW_compute_acc = 0;
+XTime HW_init_compute = 0;
+XTime SW_compute_acc = 0;
+XTime SW_init_compute = 0;
+auto makeGapJunctionIP(uint nsize){return GapJunctionIP{nsize};}
+using vec = std::vector<float>;
+const auto iterationsQuantity = uint(4);
+auto times = std::vector<int>(iterationsQuantity);
+int n_size=100;
+auto V_data = vec(n_size);
+auto C_data = vec(n_size*n_size);
+auto outCurrents = vec(n_size);
+auto gjip = makeGapJunctionIP(n_size);
+
+const std::vector<uint> sizes ={
+		100
+};
+
+
+int main(int argc, char** argv){
+  const TickType_t x10seconds = pdMS_TO_TICKS( DELAY_10_SECONDS );
+
+  xil_printf( "Iniciando ejecucion de GapJunction en FreeRTOS\r\n" );
+  xil_printf( "Generando el temporizador requerido\r\n" );
+  xTimer = xTimerCreate( (const char *) "Timer", x10seconds,
+  pdFALSE,(void *) TIMER_ID, vTimerCallback);
+  configASSERT( xTimer );
+  xil_printf( "Inicializando el temporizador requerido\r\n" );
+  xTimerStart( xTimer, 0 );
+  std::cout << "\tNsize: " << n_size <<"\n";
+  //////Generando Tareas
+  /////Tarea 1
+  xTaskCreate(_GapJuncitonTask_1,"GapJuncitonTask_1",configMINIMAL_STACK_SIZE,NULL,tskIDLE_PRIORITY+6,
+  &xGapJuncitonTask_1);
+  /////Tarea 2
+  xTaskCreate(_GapJuncitonTask_2,"GapJuncitonTask_2",configMINIMAL_STACK_SIZE,NULL,tskIDLE_PRIORITY+5,
+  &xGapJuncitonTask_2);
+  /////Tarea 3
+  xTaskCreate(_GapJuncitonTask_3,"GapJuncitonTask_3",configMINIMAL_STACK_SIZE,NULL,tskIDLE_PRIORITY+4,
+  &xGapJuncitonTask_3);
+  /////Tarea 4
+  xTaskCreate(_GapJuncitonTask_4,"GapJuncitonTask_4",configMINIMAL_STACK_SIZE,NULL,tskIDLE_PRIORITY+3,
+  &xGapJuncitonTask_4);
+  /////Tarea 5
+  xTaskCreate(_GapJuncitonTask_5,"GapJuncitonTask_5",configMINIMAL_STACK_SIZE,NULL,tskIDLE_PRIORITY+2,
+  &xGapJuncitonTask_5);
+  /////Tarea 6
+  xTaskCreate(_GapJuncitonTask_6,"GapJuncitonTask_6",configMINIMAL_STACK_SIZE,NULL,tskIDLE_PRIORITY+1,
+  &xGapJuncitonTask_6);
+  /////Inicializando el calendarizador
+  vTaskStartScheduler();
+  for( ;; );
+}
+
+
+static void _GapJuncitonTask_1(void *pvParameters ){
+	xil_printf("Ejecutando fillWithRandomData\n");
+	fillWithRandomData(V_data,C_data);
+	vTaskDelete(xGapJuncitonTask_1);
+}
+
+
+static void _GapJuncitonTask_2(void *pvParameters ){
+	std::cout << "Opening GapJunctionIP Driver devs...\n";
+    std::cout << "Ready\n";
+	gjip.copyCondMatrix(C_data);
+	vTaskDelete(xGapJuncitonTask_2);
+}
+
+static void _GapJuncitonTask_3(void *pvParameters ){
+	xil_printf("Ejecutando CopyDend");
+	XTime_GetTime(&HW_init_compute);
+	gjip.copyVdend(V_data);
+	vTaskDelete(xGapJuncitonTask_3);
+}
+
+static void _GapJuncitonTask_4(void *pvParameters ){
+	xil_printf("Ejecutando gpjip Run\n");
+	gjip.run();
+	vTaskDelete(xGapJuncitonTask_4);
+}
+
+static void _GapJuncitonTask_5(void *pvParameters ){
+	xil_printf("Ejecutando GapJunction IcBuff\n");
+	uint idx = 0;
+	for(auto &curr : outCurrents){curr = gjip.IcBuff(idx);idx++;}
+	XTime_GetTime(&HW_compute_acc);
+	HW_compute_acc = HW_compute_acc - HW_init_compute;
+	float print_fp=((float)HW_compute_acc)/COUNTS_PER_SECOND*1000000;
+	printf("HW Time exec: %.2f \n",print_fp);
+	vTaskDelete(xGapJuncitonTask_5);
+}
+
+static void _GapJuncitonTask_6(void *pvParameters ){
+	xil_printf("Ejecutando GapJunction a través de Software\n");
+	for(auto &nsize : sizes ){
+		auto Isw = std::vector<float>(nsize);
+		XTime_GetTime(&SW_init_compute);
+		SimulateSW(C_data,V_data,Isw);
+		XTime_GetTime(&SW_compute_acc);
+		SW_compute_acc = SW_compute_acc - SW_init_compute;
+		float print_swfp=((float)SW_compute_acc)/COUNTS_PER_SECOND*1000000;
+		printf("SW Time exec: %.2f\n",print_swfp);
+		//compareResults(Isw,outCurrents);
+		printf("Done compare result\n");
+	}
+
+	vTaskDelete(xGapJuncitonTask_1);
+	vTaskDelete(xGapJuncitonTask_2);
+	vTaskDelete(xGapJuncitonTask_3);
+	vTaskDelete(xGapJuncitonTask_4);
+	vTaskDelete(xGapJuncitonTask_5);
+	vTaskDelete(xGapJuncitonTask_6);
+}
+
+static void vTimerCallback( TimerHandle_t pxTimer )
+{
+	long lTimerId;
+	configASSERT( pxTimer );
+
+	lTimerId = ( long ) pvTimerGetTimerID( pxTimer );
+
+	if (lTimerId != TIMER_ID) {
+		xil_printf("FreeRTOS Hello World Example FAILED");
+	}
+
+	/* If the RxtaskCntr is updated every time the Rx task is called. The
+	 Rx task is called every time the Tx task sends a message. The Tx task
+	 sends a message every 1 second.
+	 The timer expires after 10 seconds. We expect the RxtaskCntr to at least
+	 have a value of 9 (TIMER_CHECK_THRESHOLD) when the timer expires. */
+	if (RxtaskCntr >= TIMER_CHECK_THRESHOLD) {
+		xil_printf("FreeRTOS Hello World Example PASSED");
+	} else {
+		xil_printf("FreeRTOS Hello World Example FAILED");
+	}
+
+	vTaskDelete(xGapJuncitonTask_1);
+	vTaskDelete(xGapJuncitonTask_2);
+}
+
+
+

@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Webtalk v2018.3 (64-bit)
+# SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+# 
+# Start of session at: Sun Jul 12 00:08:42 2020
+# Process ID: 15611
+# Current directory: /home/marco/Documents/tesis/2020_www34_neuronal_new_IP/2020_newIP_project1/project_2/project_2.sdk/webtalk
+# Command line: wbtcv -mode batch -source sdk_webtalk.tcl
+# Log file: /home/marco/Documents/tesis/2020_www34_neuronal_new_IP/2020_newIP_project1/project_2/project_2.sdk/webtalk/webtalk.log
+# Journal file: /home/marco/Documents/tesis/2020_www34_neuronal_new_IP/2020_newIP_project1/project_2/project_2.sdk/webtalk/webtalk.jou
+#-----------------------------------------------------------
+source sdk_webtalk.tcl

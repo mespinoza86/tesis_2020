@@ -1,0 +1,58 @@
+22:30:34 **** Incremental Build of configuration Debug for project RTOS_CPP_NEURONAL ****
+make pre-build main-build 
+a9-linaro-pre-build-step
+ 
+make: Nothing to be done for 'main-build'.
+22:30:42 **** Incremental Build of configuration Debug for project RTOS_CPP_NEURONAL ****
+make pre-build main-build 
+a9-linaro-pre-build-step
+ 
+Building file: ../src/main.cc
+Invoking: ARM v7 g++ compiler
+arm-none-eabi-g++ -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/main.o" -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -I../../RTOS_CPP_NEURONAL_bsp/ps7_cortexa9_0/include -MMD -MP -MF"src/main.d" -MT"src/main.o" -o "src/main.o" "../src/main.cc"
+../src/main.cc: In lambda function:
+../src/main.cc:27:15: warning: unused variable 't' [-Wunused-variable]
+     for(auto &t : times){
+               ^
+Finished building: ../src/main.cc
+ 
+Building target: RTOS_CPP_NEURONAL.elf
+Invoking: ARM v7 g++ linker
+arm-none-eabi-g++ -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -Wl,-build-id=none -specs=Xilinx.spec -Wl,-T -Wl,../src/lscript.ld -L../../RTOS_CPP_NEURONAL_bsp/ps7_cortexa9_0/lib -o "RTOS_CPP_NEURONAL.elf"  ./src/main.o   -Wl,--start-group,-lxil,-lfreertos,-lgcc,-lc,-lstdc++,--end-group
+Finished building target: RTOS_CPP_NEURONAL.elf
+ 
+Invoking: ARM v7 Print Size
+arm-none-eabi-size RTOS_CPP_NEURONAL.elf  |tee "RTOS_CPP_NEURONAL.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+ 822929	   3616	  96108	 922653	  e141d	RTOS_CPP_NEURONAL.elf
+Finished building: RTOS_CPP_NEURONAL.elf.size
+ 
+22:31:52 **** Auto Build of configuration Debug for project RTOS_CPP_NEURONAL ****
+make pre-build main-build 
+a9-linaro-pre-build-step
+ 
+Building file: ../src/main.cc
+Invoking: ARM v7 g++ compiler
+arm-none-eabi-g++ -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/main.o" -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -I../../RTOS_CPP_NEURONAL_bsp/ps7_cortexa9_0/include -MMD -MP -MF"src/main.d" -MT"src/main.o" -o "src/main.o" "../src/main.cc"
+../src/main.cc: In lambda function:
+../src/main.cc:27:15: warning: unused variable 't' [-Wunused-variable]
+     for(auto &t : times){
+               ^
+Finished building: ../src/main.cc
+ 
+Building target: RTOS_CPP_NEURONAL.elf
+Invoking: ARM v7 g++ linker
+arm-none-eabi-g++ -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -Wl,-build-id=none -specs=Xilinx.spec -Wl,-T -Wl,../src/lscript.ld -L../../RTOS_CPP_NEURONAL_bsp/ps7_cortexa9_0/lib -o "RTOS_CPP_NEURONAL.elf"  ./src/main.o   -Wl,--start-group,-lxil,-lfreertos,-lgcc,-lc,-lstdc++,--end-group
+Finished building target: RTOS_CPP_NEURONAL.elf
+ 
+Invoking: ARM v7 Print Size
+arm-none-eabi-size RTOS_CPP_NEURONAL.elf  |tee "RTOS_CPP_NEURONAL.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+ 823009	   3616	  96108	 922733	  e146d	RTOS_CPP_NEURONAL.elf
+Finished building: RTOS_CPP_NEURONAL.elf.size
+ 
+22:32:03 **** Incremental Build of configuration Debug for project RTOS_CPP_NEURONAL ****
+make pre-build main-build 
+a9-linaro-pre-build-step
+ 
+make: Nothing to be done for 'main-build'.

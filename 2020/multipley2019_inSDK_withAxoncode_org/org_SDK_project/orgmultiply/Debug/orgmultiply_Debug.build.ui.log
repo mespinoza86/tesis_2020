@@ -1,0 +1,10 @@
+2020-04-09T18:33:35.82065500255-18:33:35 **** Incremental Build of configuration Debug for project orgmultiply ****
+000-make all 
+000-make --no-print-directory pre-build
+000-a9-linaro-pre-build-step
+000- 
+000-make --no-print-directory main-build
+000-make[1]: Nothing to be done for 'main-build'.
+00255-
+18:33:36 Build Finished (took 382ms)
+

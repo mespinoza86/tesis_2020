@@ -1,0 +1,22 @@
+#Note: Mention Each package in individual line
+#These packages will get added into rootfs menu entry
+
+CONFIG_gpio-demo
+CONFIG_peekpoke
+CONFIG_appname
+CONFIG_mymatmul
+CONFIG_myechotest
+CONFIG_helloworld
+CONFIG_neuronalinfoli
+CONFIG_udmabuf
+CONFIG_udmabufmaster
+CONFIG_hellomodule
+CONFIG_udmabuf
+CONFIG_udmabuf
+CONFIG_helloworld
+CONFIG_jsonfile
+CONFIG_newudmabuftest
+CONFIG_newudmabuftest
+CONFIG_udmabuf
+CONFIG_udmabuftest
+CONFIG_rtosneuronalinfoli

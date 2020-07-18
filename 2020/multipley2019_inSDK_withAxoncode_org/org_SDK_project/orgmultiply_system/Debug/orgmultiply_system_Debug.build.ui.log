@@ -1,0 +1,9 @@
+2020-04-09T18:33:37.06701300255-18:33:37 **** Incremental Build of configuration Debug for project orgmultiply_system ****
+000-make all 
+000-Generating bif file for the system project
+000-Executing command '::scw::generate_bif -xpfm /home/marco/Documents/2020/multipliy2019/org_SDK_project/zed/export/zed/zed.xpfm -domains freertos10_xilinx_domain -bifpath /home/marco/Documents/2020/multipliy2019/org_SDK_project/orgmultiply_system/Debug/system.bif' on XSCT
+000-sdcard_gen --xpfm /home/marco/Documents/2020/multipliy2019/org_SDK_project/zed/export/zed/zed.xpfm --sys_config zed --bif /home/marco/Documents/2020/multipliy2019/org_SDK_project/orgmultiply_system/Debug/system.bif --no_bitstream --elf /home/marco/Documents/2020/multipliy2019/org_SDK_project/orgmultiply/Debug/orgmultiply.elf,ps7_cortexa9_1
+000-Running /opt/Xilinx_Vitis_2019/Vitis/2019.2/bin/bootgen  -image /home/marco/Documents/2020/multipliy2019/org_SDK_project/orgmultiply_system/Debug/sd_card_temp/boot.bif -w -o i BOOT.BIN
+00255-
+18:33:44 Build Finished (took 7s.558ms)
+

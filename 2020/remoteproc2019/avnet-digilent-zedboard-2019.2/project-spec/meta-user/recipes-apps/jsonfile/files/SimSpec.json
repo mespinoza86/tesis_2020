@@ -1,0 +1,71 @@
+{
+  "BrainActivityTime": "10ms",
+  "NeuralNetwork": [
+    {
+      "Population": 100,
+      "Region": "cortical",
+      "Model": {
+        "axon": {
+          "Sodium_h_a": "0.9",
+          "Sodium_m_a": "0.003596066",
+          "v_axon": "-60",
+          "Potassium_x_a": "0.2369847"
+        },
+        "soma": {
+          "Sodium_h": "0.3596066",
+          "Potassium_x_s": "0.1",
+          "Potassium_n": "0.2369847",
+          "v_soma": "-60",
+          "Calcium_k": "0.7423159",
+          "Sodium_m": "1.0127807",
+          "g_Cal": "0.68",
+          "Calcium_l": "0.0321349",
+          "Potassium_p": "0.2369847"
+        },
+        "dendrite": {
+          "Potassium_s": "0.0049291",
+          "I_CaH": "0.5",
+          "Ca2Plus": "3.7152",
+          "Calcium_r": "0.0112788",
+          "v_dend": "-60",
+          "Hcurrent_q": "0.0337836"
+        },
+        "name": "eHH",
+        "GapJunction": {
+          "Connectivity": "100%",
+          "Conductance": 0.04
+        }
+      }
+    }
+  ],
+  "Execution": "sw",
+  "Nodes": 2,
+  "InjectionCurrentPattern": [
+    {
+      "begin": "1.0ms",
+      "offset": 0,
+      "range": "(50,100)",
+      "id": 0,
+      "amplitude": 10,
+      "frequency": "100Hz",
+      "end": "2.0ms",
+      "name": "AC"
+    },
+    {
+      "begin": "3.0ms",
+      "end": "4.0ms",
+      "range": "(50,100)",
+      "name": "DC",
+      "amplitude": 6
+    },
+    {
+      "begin": "10.0ms",
+      "range": "(50,100)",
+      "name": "noise",
+      "mean": 6,
+      "std": 2,
+      "end": "15.0ms"
+    }
+  ]
+}
+

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<item value="Auto Detect" key="RTOS_vivado_2018-device"/>
+	<item value="RTOS_vivado_2018" key="programfpga.hwplatform"/>
+	<item value="" key="RTOS_vivado_2018-bmmFile"/>
+	<item value="false" key="RTOS_vivado_2018-partial_bit"/>
+	<item value="Local" key="RTOS_vivado_2018-target"/>
+	<item value="design_1_wrapper.bit" key="RTOS_vivado_2018-bitFile"/>
+</section>

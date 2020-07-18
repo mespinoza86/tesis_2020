@@ -1,0 +1,34 @@
+11:45:09 **** Build of configuration Debug for project RTOS_CPP_NEURONAL ****
+make pre-build main-build 
+a9-linaro-pre-build-step
+ 
+Building file: ../src/main.cc
+Invoking: ARM v7 g++ compiler
+arm-none-eabi-g++ -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/main.o" -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -I../../RTOS_CPP_NEURONAL_bsp/ps7_cortexa9_0/include -MMD -MP -MF"src/main.d" -MT"src/main.o" -o "src/main.o" "../src/main.cc"
+../src/main.cc: In lambda function:
+../src/main.cc:286:44: warning: format '%i' expects argument of type 'int', but argument 2 has type 'std::vector<int>*' [-Wformat=]
+   printf("El valor de times es: %i\n",times);
+                                            ^
+../src/main.cc:283:14: warning: unused variable 't' [-Wunused-variable]
+    for(auto &t : times){
+              ^
+../src/main.cc: At global scope:
+../src/main.cc:53:22: warning: 'xQueue' defined but not used [-Wunused-variable]
+ static QueueHandle_t xQueue = NULL;
+                      ^~~~~~
+Finished building: ../src/main.cc
+ 
+Building target: RTOS_CPP_NEURONAL.elf
+Invoking: ARM v7 g++ linker
+arm-none-eabi-g++ -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -Wl,-build-id=none -specs=Xilinx.spec -Wl,-T -Wl,../src/lscript.ld -L../../RTOS_CPP_NEURONAL_bsp/ps7_cortexa9_0/lib -o "RTOS_CPP_NEURONAL.elf"  ./src/main.o   -Wl,--start-group,-lxil,-lfreertos,-lgcc,-lc,-lstdc++,--end-group
+Finished building target: RTOS_CPP_NEURONAL.elf
+ 
+Invoking: ARM v7 Print Size
+arm-none-eabi-size RTOS_CPP_NEURONAL.elf  |tee "RTOS_CPP_NEURONAL.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+ 844086	   3636	 210936	1058658	 102762	RTOS_CPP_NEURONAL.elf
+Finished building: RTOS_CPP_NEURONAL.elf.size
+ 
+
+11:45:12 Build Finished (took 2s.989ms)
+
